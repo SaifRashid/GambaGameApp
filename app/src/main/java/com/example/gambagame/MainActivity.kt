@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -13,6 +14,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Retrieve the updated balance from the intent
+        val updatedBalance = intent.getIntExtra("updatedBalance", 0)
+
+        // Update the UI with the new balance
+        if (updatedBalance != 0) {
+            updateBalance(updatedBalance)
+        }
     }
     fun plusMinusPlay(view: View) {
         var betValueInt = findViewById<TextView>(R.id.text_bet_value).text.toString().replace("$", "").toInt()
@@ -39,8 +48,9 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     balanceValueInt -= betValueInt
                     updateBalance(balanceValueInt)
-                    updateMessage("You lost! Try again!", "visible", "#F44336")
-                    if (balanceValueInt == 0) {
+                    if (balanceValueInt != 0) {
+                        updateMessage("You lost! Try again!", "visible", "#F44336")
+                    } else {
                         updateButtons(false)
                         updateMessage("You lost, game is over!", "visible", "#F44336")
                     }
@@ -58,7 +68,10 @@ class MainActivity : AppCompatActivity() {
         updateMessage("Hello", "invisible", "#FFFFFF")
     }
     fun creditActivity(view: View) {
+        val balanceValueInt = findViewById<TextView>(R.id.text_balance_value).text.toString().replace("$", "").toInt()
         val intent = Intent(this, CreditActivity::class.java)
+
+        intent.putExtra("balanceValueInt", balanceValueInt)
         startActivity(intent)
     }
     private fun equalSlots(): Boolean {
@@ -110,6 +123,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun updateBet(value: Int) {
         val betValue = findViewById<TextView>(R.id.text_bet_value)
+
         betValue.text = "$$value"
     }
     private fun generateRandomNum(): Int {
