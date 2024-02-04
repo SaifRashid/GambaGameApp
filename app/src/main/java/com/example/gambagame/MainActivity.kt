@@ -110,7 +110,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun updateBet(value: Int) {
         val betValue = findViewById<TextView>(R.id.text_bet_value)
-
         betValue.text = "$$value"
     }
     private fun generateRandomNum(): Int {
