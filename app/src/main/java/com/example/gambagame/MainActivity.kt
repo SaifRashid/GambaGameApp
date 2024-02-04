@@ -1,5 +1,6 @@
 package com.example.gambagame
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                updateMessage("Insufficient funds for $${betValueInt} bet", "visible", "#F44336")
+                updateMessage("Insufficient funds for $$betValueInt bet", "visible", "#F44336")
             }
         }
     }
@@ -55,6 +56,10 @@ class MainActivity : AppCompatActivity() {
         updateSlots("reset")
         updateButtons(true)
         updateMessage("Hello", "invisible", "#FFFFFF")
+    }
+    fun creditActivity(view: View) {
+        val intent = Intent(this, CreditActivity::class.java)
+        startActivity(intent)
     }
     private fun equalSlots(): Boolean {
         val slot1 = findViewById<TextView>(R.id.text_slot1).text.toString().toInt()
@@ -89,24 +94,24 @@ class MainActivity : AppCompatActivity() {
             else -> View.VISIBLE
         }
     }
-    private fun updateButtons(boolean: Boolean) {
+    private fun updateButtons(isEnabled: Boolean) {
         val play = findViewById<Button>(R.id.button_play)
         val plus = findViewById<Button>(R.id.button_plus)
         val minus = findViewById<Button>(R.id.button_minus)
 
-        play.isEnabled = boolean
-        plus.isEnabled = boolean
-        minus.isEnabled = boolean
+        play.isEnabled = isEnabled
+        plus.isEnabled = isEnabled
+        minus.isEnabled = isEnabled
     }
     private fun updateBalance(value: Int) {
         val balanceValue = findViewById<TextView>(R.id.text_balance_value)
 
-        balanceValue.text = "$${value}"
+        balanceValue.text = "$$value"
     }
     private fun updateBet(value: Int) {
         val betValue = findViewById<TextView>(R.id.text_bet_value)
 
-        betValue.text = "$${value}"
+        betValue.text = "$$value"
     }
     private fun generateRandomNum(): Int {
         return Random().nextInt(9) + 1
