@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     fun creditActivity(view: View) {
         val balanceValueInt = findViewById<TextView>(R.id.text_balance_value).text.toString().replace("$", "").toInt()
         val intent = Intent(this, CreditActivity::class.java)
-
+        // Pass balance to CreditActivity
         intent.putExtra("balanceValueInt", balanceValueInt)
         startActivity(intent)
     }

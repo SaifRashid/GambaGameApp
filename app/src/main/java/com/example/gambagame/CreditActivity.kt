@@ -15,7 +15,7 @@ class CreditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_credit)
 
-
+        // Getting balance from MainActivity
         updateBalance2(intent.getIntExtra("balanceValueInt", 0))
 
         // Set actionBar title
@@ -54,15 +54,10 @@ class CreditActivity : AppCompatActivity() {
         if (cardValidation()) {
             toastMessage("Payment Success!")
 
-            // Create the Intent with the correct context
             val intent = Intent(this, MainActivity::class.java)
-
             val updatedBalance = amountValueInt + balanceValueInt
-
             // Pass the updated balance to MainActivity
             intent.putExtra("updatedBalance", updatedBalance)
-
-            // Start MainActivity with the updated balance
             startActivity(intent)
         }
     }
@@ -71,6 +66,7 @@ class CreditActivity : AppCompatActivity() {
         val expiration = findViewById<TextView>(R.id.text_expiration)
         val cvv = findViewById<TextView>(R.id.text_cvv)
         val postalCode = findViewById<TextView>(R.id.text_postal_code)
+
         val regex = """^(0[1-9]|1[0-2])/(2[4-9])$""".toRegex()
 
         if (cardNumber.length() < 16 || cardNumber.length() > 19) {
