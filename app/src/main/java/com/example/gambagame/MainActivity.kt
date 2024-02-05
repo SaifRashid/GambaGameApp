@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         // Retrieve the updated balance from the intent
         val updatedBalance = intent.getIntExtra("updatedBalance", 0)
 
-        // Update the UI with the new balance
         if (updatedBalance != 0) {
             updateBalance(updatedBalance)
         }
