@@ -1,4 +1,4 @@
-# Gamba Game  
+# Gamba Game App  
 
 ## Description  
 This is a slot machine game where you win by getting 3 of the same numbers.  
